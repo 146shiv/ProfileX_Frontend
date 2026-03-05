@@ -10,8 +10,9 @@ const getBaseUrl = () => {
   const env = import.meta.env.VITE_API_URL;
   if (env && typeof env === 'string') return env.replace(/\/$/, '');
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  if (origin.includes('localhost:5173') || origin.includes('127.0.0.1:5173')) return 'http://localhost:8000';
-  return origin || 'http://localhost:8000';
+  if (origin.includes('localhost') || origin.includes('127.0.0.1')) return 'http://localhost:8000';
+  // Production fallback when frontend and backend are separate (set VITE_API_URL in Vercel to override)
+  return 'https://profilex-backend.onrender.com';
 };
 
 export const apiBase = getBaseUrl();
